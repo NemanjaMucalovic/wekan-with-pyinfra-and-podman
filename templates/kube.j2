@@ -25,7 +25,7 @@ spec:
   - args:
     - mongod
     image: docker.io/library/mongo:latest
-    name: wekan-db
+    name: db
     ports:
     - containerPort: 8080
     volumeMounts:
@@ -43,7 +43,7 @@ spec:
     - name: WITH_API
       value: 'true'
     image: docker.io/wekanteam/wekan:latest
-    name: wekan
+    name: board
     securityContext: {}
   volumes:
   - name: wekandb-pvc

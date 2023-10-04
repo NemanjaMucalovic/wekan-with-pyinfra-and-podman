@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wekan
+  name: wekan
+spec:
+  ports:
+  - name: "8080"
+    nodePort: 31141
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: wekan
+  type: NodePort
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: wekan
+  name: wekan
+spec:
+  containers:
+  - args:
+    - mongod
+    image: docker.io/library/mongo:latest
+    name: wekan-db
+    ports:
+    - containerPort: 8080
+    volumeMounts:
+    - mountPath: /data/mongo
+      name: wekandb-pvc
+    - mountPath: /data/configdb
+      name: 97c30d9a3cb6b73c612d5c55e20c62b68d21bdc8bfde283ce1daccd85c7f72df-pvc
+    - mountPath: /data/db
+      name: e041088a7dd705a14f7e9f1d145a1dead814478e875da617f8d8e845b96e84b6-pvc
+  - env:
+    - name: MONGO_URL
+      value: mongodb://wekan-db/wekan
+    - name: ROOT_URL
+      value: http://0.0.0.0
+    - name: WITH_API
+      value: 'true'
+    image: docker.io/wekanteam/wekan:latest
+    name: wekan
+    securityContext: {}
+  volumes:
+  - name: wekandb-pvc
+    persistentVolumeClaim:
+      claimName: wekandb
+  - name: 97c30d9a3cb6b73c612d5c55e20c62b68d21bdc8bfde283ce1daccd85c7f72df-pvc
+    persistentVolumeClaim:
+      claimName: 97c30d9a3cb6b73c612d5c55e20c62b68d21bdc8bfde283ce1daccd85c7f72df
+  - name: e041088a7dd705a14f7e9f1d145a1dead814478e875da617f8d8e845b96e84b6-pvc
+    persistentVolumeClaim:
+      claimName: e041088a7dd705a14f7e9f1d145a1dead814478e875da617f8d8e845b96e84b6

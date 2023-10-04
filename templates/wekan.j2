@@ -1,0 +1,11 @@
+[Unit]
+Description=A kubernetes yaml based service
+
+[Kube]
+Yaml=/home/nemanja/wekan/kube.yml
+Network=slirp4netns
+LogDriver=journald
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target

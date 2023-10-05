@@ -1,9 +1,5 @@
+from pyinfra import host
 from pyinfra.operations import dnf, server, files, systemd
-
-
-def get_testinfra_username(host):
-    """Gets the username for Testinfra from group_data."""
-    return host.get_group_data("wekan", "ssh_user")
 
 
 dnf.packages(
@@ -22,22 +18,24 @@ server.shell(
 
 files.directory(
     name="create project directory",
-    path="/home/nemanja/wekan/",
+    path=f"/home/{host.data.ssh_user}/{host.data.path_to_kube}",
 )
 
 files.template(
-    name="Create kube file", src="templates/kube.j2", dest="/home/nemanja/wekan/kube.yml"
+    name="Create kube file", src="templates/kube.j2", dest=f"/home/{host.data.ssh_user}/{host.data.path_to_kube}/kube.yml"
 )
 
 files.directory(
     name="create dir for quadlet files",
-    path="/home/nemanja/.config/containers/systemd",
+    path=f"/home/{host.data.ssh_user}/{host.data.path_to_quadlet}",
 )
 
 files.template(
     name="Create podman service file",
     src="templates/wekan.j2",
-    dest="/home/nemanja/.config/containers/systemd/wekan.kube",
+    dest=f"/home/{host.data.ssh_user}/{host.data.path_to_quadlet}/wekan.kube",
+    ssh_user=host.data.ssh_user,
+    kube_path=host.data.path_to_kube,
 )
 
 systemd.service(

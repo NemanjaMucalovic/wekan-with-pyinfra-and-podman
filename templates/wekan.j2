@@ -2,9 +2,8 @@
 Description=A kubernetes yaml based service
 
 [Kube]
-Yaml=/home/nemanja/wekan/kube.yml
+Yaml=/home/{{ssh_user}}/{{kube_path}}/kube.yml
 LogDriver=journald
 
 [Install]
-# Start by default on boot
-WantedBy=multi-user.target
+WantedBy=multi-user.target default.target

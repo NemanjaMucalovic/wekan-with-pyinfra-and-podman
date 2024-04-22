@@ -8,19 +8,27 @@ def test_if_images_are_pulled(host):
 
 
 def test_if_wekan_dir_is_there(host, config_data):
-    assert host.file(f"/home/{config_data['ssh_user']}/{config_data['path_to_kube']}").is_directory
+    assert host.file(
+        f"/home/{config_data['ssh_user']}/{config_data['path_to_kube']}"
+    ).is_directory
 
 
 def test_if_kube_yaml_is_copied(host, config_data):
-    assert host.file(f"/home/{config_data['ssh_user']}/{config_data['path_to_kube']}/kube.yml").exists
+    assert host.file(
+        f"/home/{config_data['ssh_user']}/{config_data['path_to_kube']}/kube.yml"
+    ).exists
 
 
 def test_if_systemd_dir_is_there(host, config_data):
-    assert host.file(f"/home/{config_data['ssh_user']}/{config_data['path_to_quadlet']}").is_directory
+    assert host.file(
+        f"/home/{config_data['ssh_user']}/{config_data['path_to_quadlet']}"
+    ).is_directory
 
 
 def test_if_quadlet_yaml_is_copied(host, config_data):
-    assert host.file(f"/home/{config_data['ssh_user']}/{config_data['path_to_quadlet']}/wekan.kube").exists
+    assert host.file(
+        f"/home/{config_data['ssh_user']}/{config_data['path_to_quadlet']}/wekan.kube"
+    ).exists
 
 
 def test_backend_pod_is_running(host):
@@ -38,4 +46,3 @@ def test_health_route(host):
 
 def test_port_is_opened(host):
     assert host.socket("tcp://0.0.0.0:8080").is_listening
-

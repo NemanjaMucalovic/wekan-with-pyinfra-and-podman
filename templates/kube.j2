@@ -32,9 +32,9 @@ spec:
     - mountPath: /data/mongo
       name: wekandb-pvc
     - mountPath: /data/configdb
-      name: 97c30d9a3cb6b73c612d5c55e20c62b68d21bdc8bfde283ce1daccd85c7f72df-pvc
+      name: configdb-pvc
     - mountPath: /data/db
-      name: e041088a7dd705a14f7e9f1d145a1dead814478e875da617f8d8e845b96e84b6-pvc
+      name: db-pvc
   - env:
     - name: MONGO_URL
       value: mongodb://wekan-db/wekan
@@ -49,9 +49,9 @@ spec:
   - name: wekandb-pvc
     persistentVolumeClaim:
       claimName: wekandb
-  - name: 97c30d9a3cb6b73c612d5c55e20c62b68d21bdc8bfde283ce1daccd85c7f72df-pvc
+  - name: configdb-pvc
     persistentVolumeClaim:
-      claimName: 97c30d9a3cb6b73c612d5c55e20c62b68d21bdc8bfde283ce1daccd85c7f72df
-  - name: e041088a7dd705a14f7e9f1d145a1dead814478e875da617f8d8e845b96e84b6-pvc
+      claimName: configdb-pvc
+  - name: db-pvc
     persistentVolumeClaim:
-      claimName: e041088a7dd705a14f7e9f1d145a1dead814478e875da617f8d8e845b96e84b6
+      claimName: db

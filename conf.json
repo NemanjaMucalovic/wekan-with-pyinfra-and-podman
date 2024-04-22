@@ -1,5 +1,6 @@
 {
   "ssh_user": "wekan",
   "path_to_kube": "kubeconfig",
-  "path_to_quadlet": ".config/containers/systemd"
+  "path_to_quadlet": ".config/containers/systemd",
+  "target": "*example.com*"
 }

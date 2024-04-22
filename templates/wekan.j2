@@ -4,6 +4,8 @@ Description=A kubernetes yaml based service
 [Kube]
 Yaml=/home/{{ssh_user}}/{{kube_path}}/kube.yml
 LogDriver=journald
+Network=slirp4netns
+PublishPort=8080:8080
 
 [Install]
 WantedBy=multi-user.target default.target

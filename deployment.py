@@ -1,5 +1,5 @@
 from pyinfra import host
-from pyinfra.operations import dnf, server, files, systemd
+from pyinfra.operations import server, dnf, files, systemd
 
 
 dnf.packages(
@@ -22,7 +22,9 @@ files.directory(
 )
 
 files.template(
-    name="Create kube file", src="templates/kube.j2", dest=f"/home/{host.data.ssh_user}/{host.data.path_to_kube}/kube.yml"
+    name="Create kube file",
+    src="templates/kube.j2",
+    dest=f"/home/{host.data.ssh_user}/{host.data.path_to_kube}/kube.yml",
 )
 
 files.directory(
@@ -44,6 +46,5 @@ systemd.service(
     running=True,
     daemon_reload=True,
     user_mode=True,
-    user_name="nemanja"
+    user_name=host.data.ssh_user,
 )
-
